@@ -1,7 +1,8 @@
 from random import *
 from os import system
 def run():
-    with open('./archivos/data.txt', 'r', encoding='utf-8') as: f
+    with open('./archivos/data.txt', 'r', encoding='utf-8') as f:
+        
 
 
 
