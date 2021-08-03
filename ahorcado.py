@@ -21,71 +21,102 @@ def data():
    
     
 def run():
-    palabra_azar = choice(data())
-    print(palabra_azar)
+    palabra_azar = list(choice(data()))
+    
 
     nombre = input("¿Cual es tu nombre? ")
     nombre = nombre.upper()
     reglas = f"""
         
-        BIENVENIDO AL AHORCADO {nombre}!
+        BIENVENIDO AL AHORCADO {nombre}
         
-    Las reglas son simples, tenes que adivir la palabra letra por letra
+    Las reglas son simples, tenes que adivinar la palabra letra por letra
     si tenes un error perdes 1 vida
     Tenes 10 vidas
     """
     print(reglas)
-    time.sleep(1)
+    
     start = input("Presiona enter cuando estes listo")
-    if start == any: #no se para que sirve any pero funciona xd
+    if start == any: 
         pass
     else:
         print("COMIENZA EL JUEGO!!")
-    aciertos = []
-    errores = []
-    vidas = 10
-    guin_bajo = "_" * len(palabra_azar)
-    print(guin_bajo)
-   
-    while True:
-        letra_a_letra = input("PRUEBA UNA LETRA: ")
+    letras_utilizadas = []
+    vidas = 6
     
-        if len(letra_a_letra) != 1 or letra_a_letra.isnumeric():
-            print("solo puedes ingresar LETRAS, de una en una.")
-        else:
-            if letra_a_letra.lower() in aciertos:
-                print("ya habia ingresado a esa letra intenta con otra")
-            else:
-                aciertos.append(letra_a_letra)
+    progreso = []
 
-                if letra_a_letra.lower() in palabra_azar:
-
-                    print("Has acertado una letra")
+    for i in range(len(palabra_azar)):
+        progreso.append("_ ")
+    while vidas > 0:
+        print(''.join(progreso))
+        print('Letras utlizadas:', letras_utilizadas)
+        print("\n")
+        letra_a_letra = input("PRUEBA UNA LETRA: ")
+        letra_a_letra = letra_a_letra.lower()
+        
+        errores = True
+        for i in range(len(palabra_azar)):
+                if letra_a_letra == palabra_azar[i]:
+                    progreso[i] = letra_a_letra
                     
-                else: 
-                    vidas = vidas -1
-                    print("Has perdido una vida, vidas restantes: " + str(vidas))
-
-
-
-
+        
             
 
-if __name__ == '__main__':
-    run()
+        if len(letra_a_letra) != 1 or letra_a_letra.isnumeric():
+            errores = False
+            print("solo puedes ingresar LETRAS, de una en una.")
+
             
+        if letra_a_letra.lower() in letras_utilizadas:
+            errores = False
+            print("ya habia ingresado a esa letra intenta con otra")
+            
+            
+            
+        else:
+            letras_utilizadas.append(letra_a_letra)
+
+        if letra_a_letra not in palabra_azar and errores == True:
+            vidas = vidas -1
+            print('ERROR!! VIDAS RESTANTES:', vidas)
+        
+        
+           
+
+        
+        
+        if palabra_azar == progreso:
+            print('Felicidades, has ganado!!la palabra secreta era', ''.join(palabra_azar))
+            break
+        elif vidas == 0:
+            print('Juego terminado te quedaste sin vidas!! la palabra secreta era', ''.join(palabra_azar))
+            break
 
 
+        
+
+        
+        
+
+    
+
+        
+
+        
+
+        
+
+        
+
+              
+            
         
         
 
 
 
-
-
-
-
-
+            
 
 if __name__ == '__main__':
     run()
